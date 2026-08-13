@@ -17,7 +17,7 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit():Retrofit = Retrofit.Builder()
-        .baseUrl("https://api.pokemontcg.io/v2/")
+        .baseUrl("https://gnzcdjpizvssjnvpagnk.supabase.co/rest/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
