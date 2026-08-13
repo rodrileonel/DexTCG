@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    //alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -41,6 +44,8 @@ android {
 
 dependencies {
     implementation(project(":data"))
+    implementation(project(":domain"))
+    releaseImplementation(project(":data"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -52,6 +57,9 @@ dependencies {
 
     testImplementation(project(":data"))
     testImplementation(libs.junit)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     androidTestImplementation(project(":data"))
     androidTestImplementation(libs.androidx.junit)

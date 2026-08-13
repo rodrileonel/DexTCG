@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "DexTCG"
 include(":app")
 include(":data")
+include(":domain")
