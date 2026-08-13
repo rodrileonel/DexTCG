@@ -1,6 +1,8 @@
 package com.rodrigo.data.api
 
+import com.rodrigo.data.BuildConfig
+
 object ApiConstants {
-    const val KEY = "sb_publishable_jwFURfnPcwGfcFgOJ5WpHw_6sscpYpj"
+    const val KEY: String = BuildConfig.API_KEY
     const val ORDER = "pokemonId"
 }

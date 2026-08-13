@@ -1,3 +1,9 @@
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
+}
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.ksp)
@@ -17,6 +23,16 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"${localProperties.getProperty("API_KEY", "")}\""
+        )
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
