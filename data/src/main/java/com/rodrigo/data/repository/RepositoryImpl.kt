@@ -6,7 +6,6 @@ import com.rodrigo.domain.model.Pokemon
 import com.rodrigo.domain.repository.Repository
 import javax.inject.Inject
 
-
 class RepositoryImpl @Inject constructor(private val api: Api): Repository {
     override suspend fun getPokemonList(): Result<List<Pokemon>> {
         return try {

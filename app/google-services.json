@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "129551537528",
+    "project_id": "dextcg-a183f",
+    "storage_bucket": "dextcg-a183f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129551537528:android:476ca7bcd54d739c59648d",
+        "android_client_info": {
+          "package_name": "com.rodrigo.dextcg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ_-L_UEiM61oLA7Xie0CbCtKIqDzF7b8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
