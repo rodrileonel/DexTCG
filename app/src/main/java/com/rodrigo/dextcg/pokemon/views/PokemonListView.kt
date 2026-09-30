@@ -13,16 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rodrigo.dextcg.pokemon.PokemonListState
+import com.rodrigo.domain.model.Pokemon
 
 
 @Composable
-fun PokemonListView(pokemonListState: PokemonListState.Success){
+fun PokemonListView(pokemonList: Map<Int, List<Pokemon>>){
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        pokemonListState.pokemonList.forEach { (gen, pokemonList) ->
+        pokemonList.forEach { (gen, pokemonList) ->
             stickyHeader {
                 Text(
                     text = "Generation $gen",

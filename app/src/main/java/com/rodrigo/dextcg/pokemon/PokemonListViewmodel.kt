@@ -22,12 +22,25 @@ class PokemonListViewmodel @Inject constructor(
     var searchPokeState by mutableStateOf("")
         private set
 
+    private var mainPokemonList: List<Pokemon> = emptyList()
+
     init {
         getPokemonList()
     }
 
     fun onSearchPokeChange(value:String){
         searchPokeState = value
+        val pokeFiltered = if(value.isEmpty()){
+            mainPokemonList
+        } else{
+            mainPokemonList.filter {
+                it.displayName.contains(value, ignoreCase = true)
+            }
+        }
+        val group = pokeFiltered.groupBy {
+            it.generation
+        }
+        pokemonListState= PokemonListState.Success(group)
     }
 
     fun getPokemonList() {
@@ -35,6 +48,7 @@ class PokemonListViewmodel @Inject constructor(
             pokemonListState = PokemonListState.Loading
             getPokemonListUseCase()
                 .onSuccess { it ->
+                    mainPokemonList = it
                     val group = it.groupBy { it.generation }
                     pokemonListState= PokemonListState.Success(group)
                 }
