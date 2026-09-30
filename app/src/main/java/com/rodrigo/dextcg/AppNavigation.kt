@@ -10,26 +10,35 @@ import androidx.navigation.compose.rememberNavController
 import com.rodrigo.dextcg.auth.AuthScreen
 import com.rodrigo.dextcg.auth.AuthState
 import com.rodrigo.dextcg.auth.AuthViewModel
+import com.rodrigo.dextcg.auth.UserState
 import com.rodrigo.dextcg.pokemon.PokemonScreen
 import com.rodrigo.dextcg.pokemon.PokemonListViewmodel
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Auth.route) {
+    val authVm: AuthViewModel = hiltViewModel()
+    var startDestination = Screen.PokemonList.route //TODO Screen.Auth.route
+    if (authVm.currentUserState is UserState.Success)
+        startDestination = Screen.PokemonList.route
+    NavHost(navController = navController, startDestination = startDestination) {
         composable(Screen.PokemonList.route) {
             val vm: PokemonListViewmodel = hiltViewModel()
-            PokemonScreen(vm.pokemonListState)
+            PokemonScreen(
+                authVm.currentUserState,
+                vm.pokemonListState,
+                vm.searchPokeState,
+                vm::onSearchPokeChange
+            )
         }
         composable(Screen.Auth.route) {
-            val vm: AuthViewModel = hiltViewModel()
-            LaunchedEffect(vm.authState) {
-                if (vm.authState is AuthState.Success) {
+            LaunchedEffect(authVm.authState) {
+                if (authVm.authState is AuthState.Success) {
                     navController.navigate(Screen.PokemonList.route) {
                         popUpTo(Screen.Auth.route) { inclusive = true }
                     }
                 }
             }
-            AuthScreen (vm.authState,{ vm.singInWithGoogle() })
+            AuthScreen (authVm.authState, authVm::singInWithGoogle)
         }
     }
 }

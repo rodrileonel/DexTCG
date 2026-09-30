@@ -19,8 +19,15 @@ class PokemonListViewmodel @Inject constructor(
     var pokemonListState by mutableStateOf<PokemonListState>(PokemonListState.Idle)
         private set
 
+    var searchPokeState by mutableStateOf("")
+        private set
+
     init {
         getPokemonList()
+    }
+
+    fun onSearchPokeChange(value:String){
+        searchPokeState = value
     }
 
     fun getPokemonList() {

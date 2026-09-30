@@ -12,6 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import com.rodrigo.data.BuildConfig
+import com.rodrigo.domain.model.User
 
 class AuthRepositoryImpl @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -52,5 +53,17 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun isUserLoggedIn(): Boolean {
         return auth.currentUser!=null
+    }
+
+    override suspend fun getLoggedUser(): Result<User?> {
+        return try {
+            if(auth.currentUser!=null)
+                Result.success(User(auth.currentUser?.displayName?:"",auth.currentUser?.email?:""))
+            else
+                Result.success(null)
+        } catch (e: Exception){
+            e.printStackTrace()
+            Result.failure(e)
+        }
     }
 }

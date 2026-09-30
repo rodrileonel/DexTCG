@@ -1,4 +1,4 @@
-package com.rodrigo.dextcg.auth
+package com.rodrigo.dextcg.auth.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
