@@ -20,8 +20,8 @@ import com.rodrigo.domain.model.Pokemon
 fun PokemonListView(pokemonList: Map<Int, List<Pokemon>>){
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         pokemonList.forEach { (gen, pokemonList) ->
             stickyHeader {
@@ -35,7 +35,10 @@ fun PokemonListView(pokemonList: Map<Int, List<Pokemon>>){
                 )
             }
             items(pokemonList) { poke ->
-                PokemonItemView(poke)
+                PokemonItemView(
+                    poke,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
         }
     }

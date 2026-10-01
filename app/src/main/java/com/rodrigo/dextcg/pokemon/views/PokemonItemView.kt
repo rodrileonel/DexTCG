@@ -14,9 +14,9 @@ import coil.compose.AsyncImage
 import com.rodrigo.domain.model.Pokemon
 
 @Composable
-fun PokemonItemView(poke: Pokemon)  {
+fun PokemonItemView(poke: Pokemon, modifier: Modifier = Modifier)  {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally

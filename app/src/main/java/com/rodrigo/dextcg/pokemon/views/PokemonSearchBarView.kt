@@ -18,8 +18,7 @@ fun PokemonSearchBarView(
     onSearchQueryChange: (String) -> Unit
 ){
     OutlinedTextField(
-        modifier = modifier
-            .padding(8.dp),
+        modifier = modifier,
         value = searchPokeState,
         onValueChange = onSearchQueryChange,
         placeholder = { Text("Search Pokemon") },

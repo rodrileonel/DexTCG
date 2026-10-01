@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,15 +48,16 @@ fun PokemonScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp,2.dp),
+                            .padding(16.dp,2.dp,),
                         verticalAlignment = Alignment.CenterVertically,
-
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ){
                         PokemonSearchBarView(
                             modifier = Modifier.weight(1f),
                             searchPokeState,
                             onSearchQueryChange,
                         )
+                        Icon(imageVector = Icons.Default.Edit, contentDescription = "filter")
                         when (userState) {
                             is UserState.Success -> UserAvatarView(userState.user.name)
                             else -> UserAvatarView("Ian Valdivia") //TODO unit
