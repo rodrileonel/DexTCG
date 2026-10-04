@@ -1,4 +1,4 @@
-package com.rodrigo.dextcg.pokemon.views
+package com.rodrigo.dextcg.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

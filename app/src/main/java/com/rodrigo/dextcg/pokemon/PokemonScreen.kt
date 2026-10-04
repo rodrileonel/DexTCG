@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -18,10 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rodrigo.dextcg.auth.UserState
-import com.rodrigo.dextcg.pokemon.views.LoadingView
+import com.rodrigo.dextcg.ui.components.LoadingView
 import com.rodrigo.dextcg.pokemon.views.PokemonListView
 import com.rodrigo.dextcg.pokemon.views.PokemonSearchBarView
-import com.rodrigo.dextcg.pokemon.views.UserAvatarView
+import com.rodrigo.dextcg.ui.components.UserAvatarView
 
 @Composable
 fun PokemonScreen(
