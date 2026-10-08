@@ -11,23 +11,34 @@ import com.rodrigo.dextcg.auth.AuthScreen
 import com.rodrigo.dextcg.auth.AuthState
 import com.rodrigo.dextcg.auth.AuthViewModel
 import com.rodrigo.dextcg.auth.UserState
+import com.rodrigo.dextcg.pokemon.PokemonListViewModel
 import com.rodrigo.dextcg.pokemon.PokemonScreen
-import com.rodrigo.dextcg.pokemon.PokemonListViewmodel
+import com.rodrigo.dextcg.sets.PokemonSetsScreen
+import com.rodrigo.dextcg.sets.PokemonSetsViewModel
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
     val authVm: AuthViewModel = hiltViewModel()
-    var startDestination = Screen.PokemonList.route //TODO Screen.Auth.route
+    var startDestination = Screen.PokemonSets.route //TODO Screen.Auth.route
     if (authVm.currentUserState is UserState.Success)
         startDestination = Screen.PokemonList.route
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Screen.PokemonList.route) {
-            val vm: PokemonListViewmodel = hiltViewModel()
+            val vm: PokemonListViewModel = hiltViewModel()
             PokemonScreen(
                 authVm.currentUserState,
                 vm.pokemonListState,
                 vm.searchPokeState,
                 vm::onSearchPokeChange
+            )
+        }
+        composable(Screen.PokemonSets.route) {
+            val vm: PokemonSetsViewModel = hiltViewModel()
+            PokemonSetsScreen(
+                authVm.currentUserState,
+                vm.pokemonSetsState,
+                //vm.searchPokeState,
+                //vm::onSearchPokeChange
             )
         }
         composable(Screen.Auth.route) {
@@ -52,6 +63,7 @@ fun AppNavigation() {
 
 sealed class Screen(val route:String){
     object PokemonList: Screen("pokemonList")
+    object PokemonSets: Screen("sets")
     object Auth: Screen("auth")
     object Cards: Screen("cards/{from}/{filter}"){
         const val ARG_FROM = "from"
