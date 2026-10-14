@@ -26,6 +26,7 @@ import com.rodrigo.dextcg.pokemon.PokemonListState
 import com.rodrigo.dextcg.pokemon.views.PokemonItemView
 import com.rodrigo.dextcg.pokemon.views.PokemonListView
 import com.rodrigo.dextcg.pokemon.views.PokemonSearchBarView
+import com.rodrigo.dextcg.sets.views.PokemonSetsItemView
 import com.rodrigo.dextcg.ui.components.LoadingView
 import com.rodrigo.dextcg.ui.components.UserAvatarView
 import kotlin.collections.component1
@@ -65,9 +66,11 @@ fun PokemonSetsScreen(
                                         .padding(horizontal = 16.dp, vertical = 8.dp)
                                 )
                             }
-                            items(pokemonList) { poke ->
-                                Text(poke.name)
-
+                            items(pokemonList) { set ->
+                                PokemonSetsItemView(
+                                    set,
+                                    modifier = Modifier.padding(horizontal = 16.dp)
+                                )
                             }
                         }
                     }

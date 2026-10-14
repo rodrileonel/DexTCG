@@ -20,7 +20,7 @@ fun HomeScreen(
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
-                PokemonBottomBar(
+                HomeBottomBarView(
                     currentRoute = currentRoute,
                     onTabSelected = onTabSelected
                 )

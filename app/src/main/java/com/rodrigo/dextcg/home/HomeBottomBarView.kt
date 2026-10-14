@@ -12,7 +12,7 @@ import com.rodrigo.dextcg.Screen
 
 
 @Composable
-fun PokemonBottomBar(
+fun HomeBottomBarView(
     currentRoute: String?,
     onTabSelected: (String) -> Unit
 ) {
