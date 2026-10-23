@@ -2,6 +2,7 @@ package com.rodrigo.dextcg.pokemon.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -12,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.rodrigo.dextcg.pokemon.PokemonListState
 import com.rodrigo.domain.model.Pokemon
 
 
@@ -20,6 +20,7 @@ import com.rodrigo.domain.model.Pokemon
 fun PokemonListView(pokemonList: Map<Int, List<Pokemon>>){
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(bottom = 100.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {

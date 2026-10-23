@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
@@ -52,8 +54,9 @@ fun PokemonSetsScreen(
                 ){
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                        contentPadding = PaddingValues(bottom = 100.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
                         pokemonSetsState.pokemonSets.forEach { (era, pokemonList) ->
                             stickyHeader {
@@ -66,10 +69,13 @@ fun PokemonSetsScreen(
                                         .padding(horizontal = 16.dp, vertical = 8.dp)
                                 )
                             }
-                            items(pokemonList) { set ->
+                            itemsIndexed(pokemonList) { index,set ->
                                 PokemonSetsItemView(
                                     set,
-                                    modifier = Modifier.padding(horizontal = 16.dp)
+                                    modifier = Modifier.padding(
+                                        start = if (index % 2 == 0) 16.dp else 0.dp,
+                                        end = if (index % 2 == 1) 16.dp else 0.dp
+                                    )
                                 )
                             }
                         }
