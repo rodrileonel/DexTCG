@@ -50,8 +50,8 @@ fun AppNavHost(
             PokemonSetsScreen(
                 authVm.currentUserState,
                 vm.pokemonSetsState,
-                //vm.searchPokeState,
-                //vm::onSearchPokeChange
+                vm.searchSetState,
+                vm::onSearchSetsChange
             )
         }
         composable(Screen.Auth.route) {

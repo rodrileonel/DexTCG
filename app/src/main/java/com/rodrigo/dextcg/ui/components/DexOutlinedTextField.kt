@@ -15,14 +15,14 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DexOutlinedTextField(
     modifier: Modifier,
-    searchPokeState: String,
+    searchState: String,
     onSearchQueryChange: (String) -> Unit,
     placeholder:String = "",
     leadingIcon: (@Composable () -> Unit)? = null
 ){
     OutlinedTextField(
         modifier = modifier,
-        value = searchPokeState,
+        value = searchState,
         onValueChange = onSearchQueryChange,
         placeholder = { Text(placeholder) },
         leadingIcon = leadingIcon,

@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rodrigo.dextcg.pokemon.PokemonListState
-import com.rodrigo.domain.model.Pokemon
 import com.rodrigo.domain.model.PokemonSet
 import com.rodrigo.domain.usecase.GetPokemonSetsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,10 +18,28 @@ class PokemonSetsViewModel @Inject constructor(
     var pokemonSetsState by mutableStateOf<PokemonSetsState>(PokemonSetsState.Idle)
         private set
 
+    var searchSetState by mutableStateOf("")
+        private set
+
     private var mainPokemonSets: List<PokemonSet> = emptyList()
 
     init {
         getPokemonSets()
+    }
+
+    fun onSearchSetsChange(value:String){
+        searchSetState = value
+        val setFiltered = if(value.isEmpty()){
+            mainPokemonSets
+        } else{
+            mainPokemonSets.filter {
+                it.name.contains(value, ignoreCase = true)
+            }
+        }
+        val group = setFiltered.groupBy {
+            it.series?:""
+        }
+        pokemonSetsState= PokemonSetsState.Success(group)
     }
 
     fun getPokemonSets() {

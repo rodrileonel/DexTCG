@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -24,19 +24,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rodrigo.dextcg.auth.UserState
-import com.rodrigo.dextcg.pokemon.PokemonListState
-import com.rodrigo.dextcg.pokemon.views.PokemonItemView
-import com.rodrigo.dextcg.pokemon.views.PokemonListView
 import com.rodrigo.dextcg.sets.views.PokemonSetsItemView
+import com.rodrigo.dextcg.ui.components.DexOutlinedTextField
 import com.rodrigo.dextcg.ui.components.LoadingView
 import com.rodrigo.dextcg.ui.components.UserAvatarView
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 @Composable
 fun PokemonSetsScreen(
     userState: UserState,
-    pokemonSetsState: PokemonSetsState
+    pokemonSetsState: PokemonSetsState,
+    searchSetState: String,
+    onSearchQueryChange: (String) -> Unit,
 ) {
     Scaffold(modifier = Modifier.fillMaxSize()) { inner ->
         Box(
@@ -51,6 +49,31 @@ fun PokemonSetsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp,8.dp,),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ){
+                        DexOutlinedTextField(
+                            modifier = Modifier.weight(1f),
+                            searchSetState,
+                            onSearchQueryChange,
+                            placeholder = "Search bar",
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search"
+                                )
+                            }
+                        )
+                        Icon(imageVector = Icons.Default.Edit, contentDescription = "filter")
+                        when (userState) {
+                            is UserState.Success -> UserAvatarView(userState.user.name)
+                            else -> UserAvatarView("Ian Valdivia") //TODO unit
+                        }
+                    }
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         contentPadding = PaddingValues(bottom = 100.dp),
