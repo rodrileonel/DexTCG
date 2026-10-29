@@ -28,7 +28,7 @@ fun AppNavHost(
     modifier: Modifier = Modifier
 ) {
     val authVm: AuthViewModel = hiltViewModel()
-    var startDestination = Screen.PokemonSets.route //TODO Screen.Auth.route
+    var startDestination = Screen.PokemonList.route //TODO Screen.Auth.route
     if (authVm.currentUserState is UserState.Success)
         startDestination = Screen.PokemonList.route
     NavHost(

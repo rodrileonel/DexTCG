@@ -27,7 +27,6 @@ import com.rodrigo.dextcg.auth.UserState
 import com.rodrigo.dextcg.pokemon.PokemonListState
 import com.rodrigo.dextcg.pokemon.views.PokemonItemView
 import com.rodrigo.dextcg.pokemon.views.PokemonListView
-import com.rodrigo.dextcg.pokemon.views.PokemonSearchBarView
 import com.rodrigo.dextcg.sets.views.PokemonSetsItemView
 import com.rodrigo.dextcg.ui.components.LoadingView
 import com.rodrigo.dextcg.ui.components.UserAvatarView

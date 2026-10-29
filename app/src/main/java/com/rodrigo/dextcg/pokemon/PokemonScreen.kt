@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.rodrigo.dextcg.auth.UserState
 import com.rodrigo.dextcg.ui.components.LoadingView
 import com.rodrigo.dextcg.pokemon.views.PokemonListView
-import com.rodrigo.dextcg.pokemon.views.PokemonSearchBarView
+import com.rodrigo.dextcg.ui.components.DexOutlinedTextField
 import com.rodrigo.dextcg.ui.components.UserAvatarView
 
 @Composable
@@ -47,14 +48,21 @@ fun PokemonScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp,2.dp,),
+                            .padding(16.dp,8.dp,),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ){
-                        PokemonSearchBarView(
+                        DexOutlinedTextField(
                             modifier = Modifier.weight(1f),
                             searchPokeState,
                             onSearchQueryChange,
+                            placeholder = "Search bar",
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search"
+                                )
+                            }
                         )
                         Icon(imageVector = Icons.Default.Edit, contentDescription = "filter")
                         when (userState) {
