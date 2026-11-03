@@ -1,11 +1,13 @@
-package com.rodrigo.dextcg.pokemon
+package com.rodrigo.dextcg.dex
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -19,16 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rodrigo.dextcg.auth.UserState
 import com.rodrigo.dextcg.ui.components.LoadingView
-import com.rodrigo.dextcg.pokemon.views.PokemonListView
+import com.rodrigo.dextcg.dex.views.PokemonListView
 import com.rodrigo.dextcg.ui.components.DexOutlinedTextField
 import com.rodrigo.dextcg.ui.components.UserAvatarView
 
 @Composable
-fun PokemonScreen(
+fun PokeDexScreen(
     userState: UserState,
     pokemonListState: PokemonListState,
     searchPokeState: String,
     onSearchQueryChange: (String) -> Unit,
+    onNavigateToCards:(String) -> Unit
 ) {
     Scaffold(modifier = Modifier.fillMaxSize()) { inner ->
         Box(
@@ -70,7 +73,10 @@ fun PokemonScreen(
                             else -> UserAvatarView("Ian Valdivia") //TODO unit
                         }
                     }
-                    PokemonListView(pokemonListState.pokemonList)
+                    PokemonListView(
+                        pokemonListState.pokemonList,
+                        onNavigateToCards
+                    )
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.rodrigo.dextcg.pokemon
+package com.rodrigo.dextcg.dex
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PokemonListViewModel @Inject constructor(
+class PokeDexViewModel @Inject constructor(
     private val getPokemonListUseCase: GetPokemonListUseCase
 ) : ViewModel() {
 

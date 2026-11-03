@@ -16,9 +16,10 @@ import com.rodrigo.dextcg.auth.AuthScreen
 import com.rodrigo.dextcg.auth.AuthState
 import com.rodrigo.dextcg.auth.AuthViewModel
 import com.rodrigo.dextcg.auth.UserState
+import com.rodrigo.dextcg.cards.CardsScreen
 import com.rodrigo.dextcg.home.HomeScreen
-import com.rodrigo.dextcg.pokemon.PokemonListViewModel
-import com.rodrigo.dextcg.pokemon.PokemonScreen
+import com.rodrigo.dextcg.dex.PokeDexScreen
+import com.rodrigo.dextcg.dex.PokeDexViewModel
 import com.rodrigo.dextcg.sets.PokemonSetsScreen
 import com.rodrigo.dextcg.sets.PokemonSetsViewModel
 
@@ -37,12 +38,17 @@ fun AppNavHost(
         modifier = modifier
     ) {
         composable(Screen.PokemonList.route) {
-            val vm: PokemonListViewModel = hiltViewModel()
-            PokemonScreen(
+            val vm: PokeDexViewModel = hiltViewModel()
+            PokeDexScreen(
                 authVm.currentUserState,
                 vm.pokemonListState,
                 vm.searchPokeState,
-                vm::onSearchPokeChange
+                vm::onSearchPokeChange,
+                onNavigateToCards = { name ->
+                    navController.navigate(
+                        Screen.Cards.createRouteFromDex(name)
+                    )
+                }
             )
         }
         composable(Screen.PokemonSets.route) {
@@ -51,7 +57,12 @@ fun AppNavHost(
                 authVm.currentUserState,
                 vm.pokemonSetsState,
                 vm.searchSetState,
-                vm::onSearchSetsChange
+                vm::onSearchSetsChange,
+                onNavigateToCards = { setId ->
+                    navController.navigate(
+                        Screen.Cards.createRouteFromSet(setId)
+                    )
+                }
             )
         }
         composable(Screen.Auth.route) {
@@ -63,6 +74,13 @@ fun AppNavHost(
                 }
             }
             AuthScreen (authVm.authState, authVm::singInWithGoogle)
+        }
+        composable(Screen.Cards.route) { backStackEntry ->
+            CardsScreen(
+                authVm.currentUserState,
+                "",
+                onBack = {navController.popBackStack()},
+            )
         }
     }
 }
@@ -104,8 +122,8 @@ sealed class Screen(val route:String){
         const val ARG_FROM = "from"
         const val ARG_FILTER = "filter"
         const val FROM_SET = "set"
-        const val FROM_POKEMON = "pokemon"
-        fun createRouteFromSet(setId:String) = "cards/$FROM_SET/$setId"
-        fun createRouteFromPokemon(name:String) = "cards/$FROM_POKEMON/$name"
+        const val FROM_DEX = "dex"
+        fun createRouteFromSet(setId:Int) = "cards/$FROM_SET/$setId"
+        fun createRouteFromDex(name:String) = "cards/$FROM_DEX/$name"
     }
 }

@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.rodrigo.dextcg.auth.UserState
 import com.rodrigo.dextcg.sets.views.PokemonSetsItemView
@@ -35,6 +36,7 @@ fun PokemonSetsScreen(
     pokemonSetsState: PokemonSetsState,
     searchSetState: String,
     onSearchQueryChange: (String) -> Unit,
+    onNavigateToCards:(Int) -> Unit
 ) {
     Scaffold(modifier = Modifier.fillMaxSize()) { inner ->
         Box(
@@ -85,10 +87,12 @@ fun PokemonSetsScreen(
                                 Text(
                                     text = era,
                                     style = MaterialTheme.typography.titleMedium,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .background(MaterialTheme.colorScheme.surfaceVariant)
-                                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                                    overflow = TextOverflow.Ellipsis,
                                 )
                             }
                             itemsIndexed(pokemonList) { index,set ->
@@ -97,7 +101,8 @@ fun PokemonSetsScreen(
                                     modifier = Modifier.padding(
                                         start = if (index % 2 == 0) 16.dp else 0.dp,
                                         end = if (index % 2 == 1) 16.dp else 0.dp
-                                    )
+                                    ),
+                                    onClick = onNavigateToCards,
                                 )
                             }
                         }
