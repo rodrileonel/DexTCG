@@ -2,6 +2,7 @@ package com.rodrigo.data.repository
 
 import com.rodrigo.data.api.Api
 import com.rodrigo.domain.model.Pokemon
+import com.rodrigo.domain.model.PokemonCard
 import com.rodrigo.domain.model.PokemonSet
 import com.rodrigo.domain.repository.Repository
 import javax.inject.Inject
@@ -59,4 +60,51 @@ class RepositoryImpl @Inject constructor(private val api: Api): Repository {
             Result.failure(e)
         }
     }
+
+    override suspend fun getCardsBySet(setId: Int): Result<List<PokemonCard>> {
+        return try {
+            val res = api.getCardsBySet("eq.$setId")
+            val list = res.map { dto->
+                PokemonCard(
+                    dto.id,
+                    dto.name,
+                    dto.cleanName,
+                    dto.number,
+                    dto.rarity,
+                    dto.tcgplayerId,
+                    dto.foilOnly,
+                    dto.printing,
+                    dto.imageUrl,
+                    dto.setId,
+                )
+            }
+            Result.success(list)
+        }catch (e: Exception){
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getCardsByDex(names: String, exclusions:List<String>): Result<List<PokemonCard>> {
+        return try {
+            val res = api.getCardsByDex(names,exclusions)
+            val list = res.map { dto->
+                PokemonCard(
+                    dto.id,
+                    dto.name,
+                    dto.cleanName,
+                    dto.number,
+                    dto.rarity,
+                    dto.tcgplayerId,
+                    dto.foilOnly,
+                    dto.printing,
+                    dto.imageUrl,
+                    dto.setId,
+                )
+            }
+            Result.success(list)
+        }catch (e: Exception){
+            Result.failure(e)
+        }
+    }
+
 }

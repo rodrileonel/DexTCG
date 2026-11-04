@@ -11,19 +11,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.rodrigo.dextcg.auth.UserState
+import com.rodrigo.dextcg.cards.views.CardItemView
 import com.rodrigo.dextcg.sets.PokemonSetsState
 import com.rodrigo.dextcg.sets.views.PokemonSetsItemView
 import com.rodrigo.dextcg.ui.components.DexOutlinedTextField
@@ -35,6 +40,7 @@ import kotlin.collections.component2
 @Composable
 fun CardsScreen(
     userState: UserState,
+    cardsState: CardsState,
     searchCardsState: String,
     onBack: (String) -> Unit
 ) {
@@ -43,7 +49,23 @@ fun CardsScreen(
             contentAlignment = Alignment.TopCenter,
             modifier = Modifier.fillMaxSize().padding(inner)
         ) {
-
+            when (cardsState) {
+                is CardsState.Idle -> CircularProgressIndicator()
+                is CardsState.Loading -> CircularProgressIndicator()
+                is CardsState.Error -> Text("Error")
+                is CardsState.Success -> {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(3),
+                        contentPadding = PaddingValues(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        items(cardsState.cards) { card ->
+                            CardItemView(card)
+                        }
+                    }
+                }
+            }
         }
     }
 }

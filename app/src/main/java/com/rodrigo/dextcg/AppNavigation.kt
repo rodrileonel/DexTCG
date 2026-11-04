@@ -17,6 +17,7 @@ import com.rodrigo.dextcg.auth.AuthState
 import com.rodrigo.dextcg.auth.AuthViewModel
 import com.rodrigo.dextcg.auth.UserState
 import com.rodrigo.dextcg.cards.CardsScreen
+import com.rodrigo.dextcg.cards.CardsViewModel
 import com.rodrigo.dextcg.home.HomeScreen
 import com.rodrigo.dextcg.dex.PokeDexScreen
 import com.rodrigo.dextcg.dex.PokeDexViewModel
@@ -75,9 +76,11 @@ fun AppNavHost(
             }
             AuthScreen (authVm.authState, authVm::singInWithGoogle)
         }
-        composable(Screen.Cards.route) { backStackEntry ->
+        composable(Screen.Cards.route) {
+            val vm: CardsViewModel = hiltViewModel()
             CardsScreen(
                 authVm.currentUserState,
+                vm.cardsState,
                 "",
                 onBack = {navController.popBackStack()},
             )
